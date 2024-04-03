@@ -8,7 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { InfoDialog } from './dashboard/dashboard.component';
+import { MqttModule, IMqttServiceOptions } from 'ngx-mqtt';
+export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: '0.0.0.0',
+  port: 9001,
+  path: '',
+};
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent],
@@ -18,6 +23,7 @@ import { InfoDialog } from './dashboard/dashboard.component';
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
   ],
   providers: [],
   bootstrap: [AppComponent],

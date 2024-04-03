@@ -1,10 +1,25 @@
 .mat-button-toggle-checked {
-  background-color: #00ff00 !important;
-  color: white;
+  background-color: #ff4c4c !important;
+  color: #f2f2f2;
+}
+.mat-button-toggle {
+  background-color: #363a45;
+  color: #f2f2f2;
+}
+
+.mat-button-toggle-group {
+  height: 40px;
+  align-items: center;
+  border-width: 0;
+  border-left: none;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.mat-mdc-card {
+  background-color: #272b34 !important;
 }

@@ -11,12 +11,12 @@
     </button>
 </nav>
 
-<div class="flex flex-wrap justify-center">
+<div class="flex flex-wrap justify-center bg-transparent text-[#F2F2F2]">
 
 <!-- EMERGENCY STOP -->
-<mat-card class="w-96 m-3">
+<mat-card class="container w-96 h-28 m-3">
     <mat-card-content class="my-2">
-        <button (click)="emergencyStop()" class="w-full h-16 bg-red-800 hover:bg-red-600 text-white font-bold py-2 px-4 rounded inline-flex justify-center items-center">
+        <button (click)="emergencyStop()" class="w-full h-16 bg-[#FF4C4C] hover:bg-red-500 text-white font-bold py-2 px-4 rounded inline-flex justify-center items-center">
             <mat-icon class="mr-2">error_outline</mat-icon>
             <span class="text-xl">EMERGENCY STOP</span>
         </button>          
@@ -24,20 +24,20 @@
 </mat-card>
 
 <!-- ROBOT MODE -->
-<mat-card class="w-96 m-3">
+<mat-card class="container w-96 h-28 m-3">
     <mat-card-header>
         <mat-card-title>ROBOT MODE</mat-card-title>
     </mat-card-header>
     <mat-card-content class="my-2">
         <div class="flex flex-row justify-between">
-            <div [style.backgroundColor]="teach_mode=='playback'?on_color : off_color" class="p-2 border rounded w-[170px] text-center font-semibold">PLAYBACK</div>
-            <div [style.backgroundColor]="teach_mode=='teach'?on_color : off_color" class="p-2 border rounded w-[170px] text-center font-semibold">TEACH</div>
+            <div [style.backgroundColor]="teach_mode=='playback'?on_color : off_color" class="p-2 rounded w-[170px] text-center font-semibold">PLAYBACK</div>
+            <div [style.backgroundColor]="teach_mode=='teach'?on_color : off_color" class="p-2 rounded w-[170px] text-center font-semibold">TEACH</div>
         </div>
     </mat-card-content>
 </mat-card>
 
 <!-- IO BOARD -->
-<mat-card class="w-96 m-3">
+<mat-card class="container w-96 h-28 m-3">
     <mat-card-header>
         <mat-card-title>I/O BOARD</mat-card-title>
     </mat-card-header>
@@ -51,24 +51,15 @@
             </mat-grid-tile>
         </mat-grid-list>
     </mat-card-content>
-    <mat-card-actions class="justify-between m-[8px]">
-        <button mat-stroked-button>REFRESH</button>
-        <div class="w-20 h-full content-end">
-            <mat-grid-list cols="2" rowHeight="24px" gutterSize="5px">
-                <mat-grid-tile class="border rounded" colspan=1 rowspan=1 [style.background]="on_color"> ON </mat-grid-tile>
-                <mat-grid-tile class="border rounded" colspan=1 rowspan=1 [style.background]="off_color"> OFF </mat-grid-tile>
-            </mat-grid-list>
-        </div>
-    </mat-card-actions>
 </mat-card>
 
 <!-- OPERATION MODE -->
-<mat-card class="w-96 m-3">
+<mat-card class="container w-96 h-28 m-3">
     <mat-card-header>
         <mat-card-title>OPERATION MODE</mat-card-title>
     </mat-card-header>
     <mat-card-content class="my-2">
-        <mat-button-toggle-group class="w-full font-semibold" #group="matButtonToggleGroup" [value]="operation_mode" (change)="onOperationChange(group.value)">
+        <mat-button-toggle-group class="w-full border-none font-semibold" #group="matButtonToggleGroup" [value]="operation_mode" (change)="onOperationChange(group.value)">
             <mat-button-toggle value="auto" style="width:50%">AUTO</mat-button-toggle>
             <mat-button-toggle value="manual" style="width:50%">MANUAL</mat-button-toggle>
           </mat-button-toggle-group>
@@ -76,30 +67,33 @@
 </mat-card>
 
 <!-- MANUAL RUN -->
-<mat-card class="w-96 m-3" *ngIf="operation_mode === 'manual'">
+<mat-card class="container w-96 h-28 m-3" *ngIf="operation_mode === 'manual'">
     <mat-card-header>
         <mat-card-title>MANUAL RUN</mat-card-title>
     </mat-card-header>
     <mat-card-content class="my-2">
         <div class="flex flex-row">
-            <input type="number" [(ngModel)]="manual_program_num" class="block w-3/4 p-4 text-white-900 border border-gray-300 rounded-lg bg-white text-base focus:ring-blue-500 focus:border-blue-500" placeholder="Input Program Number">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded w-1/4" (click)="manualProgramSelect()">GO</button>
+            <input type="number" [(ngModel)]="manual_program_num" class="block w-3/4 h-10 p-4 text-black border rounded-lg bg-white text-base focus:ring-blue-500" placeholder="Input Program Number">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded w-1/4" (click)="operationManual()">GO</button>
         </div>
     </mat-card-content>
 </mat-card>
 
 <!-- AUTO RUN -->
-<mat-card class="w-96 m-3" *ngIf="operation_mode === 'auto'">
+<mat-card class="container w-96 h-28 m-3" *ngIf="operation_mode === 'auto'">
     <mat-card-header>
         <mat-card-title>AUTO RUN</mat-card-title>
     </mat-card-header>
     <mat-card-content class="my-2">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold w-full h-12 rounded" (click)="autoOperation()">START</button>
+        <div class="">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold w-[170px] h-10 rounded" (click)="operationAuto('start')">START</button>
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold w-[170px] h-10 rounded ml-3" (click)="operationAuto('stop')">STOP</button>
+        </div>
     </mat-card-content>
 </mat-card>
 
 <!-- PROGRAM SEQUENCE -->
-<mat-card class="w-96 m-3">
+<mat-card class="container w-96 h-36 m-3">
     <mat-card-header>
         <mat-card-title>PROGRAM SEQUENCE</mat-card-title>
     </mat-card-header>
@@ -107,11 +101,11 @@
         <div class="flex flex-row justify-between">
             <div class="space-y-1">
                 <label>Program State</label>
-                <div [style.backgroundColor]="program_sequence.start=='1'?on_color : '#D82526'" [style.color]="program_sequence.start=='1'?'#000000' : '#ffffff'" class="h-12 p-2 border text-2xl rounded w-[170px] text-center font-semibold">{{program_sequence.start=='1'?'RUNNING' : 'STOPPED'}}</div>
+                <div [style.backgroundColor]="program_sequence.start=='1'?'#3C82F6' : '#FF4C4C'" [style.color]="program_sequence.start=='1'?'#f2f2f2' : '#f2f2f2'" class="h-12 p-2 text-2xl rounded w-[170px] text-center font-semibold">{{program_sequence.start=='1'?'RUNNING' : 'STOPPED'}}</div>
             </div>
             <div class="space-y-1">
                 <label>Program Number</label>
-                <div class="h-12 p-2 text-2xl border rounded w-[170px] text-center font-semibold">{{program_sequence.number}}</div>
+                <div class="h-12 p-2 text-2xl rounded w-[170px] text-center text-[#f2f2f2] font-semibold bg-[#363A45]">{{program_sequence.number}}</div>
             </div>
         </div>
         <mat-progress-bar mode="indeterminate" *ngIf="program_sequence.start=='1'" class="my-2"></mat-progress-bar>
@@ -119,11 +113,11 @@
 </mat-card>
 
 <!-- CAMERA FEED -->
-<mat-card class="w-96 m-3">
+<mat-card class="container w-96 m-3">
     <mat-card-header>
         <mat-card-title>CAMERA FEED</mat-card-title>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="https://cdn.osxdaily.com/wp-content/uploads/2013/12/there-is-no-connected-camera-mac.jpg" alt="Photo of a Shiba Inu">
     <mat-card-content>
         <div class="my-2">
             <span>Time: {{camera_timestamp}}</span>
