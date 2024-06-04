@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     { id: '15', state: '0' },
     { id: '16', state: '0' },
   ];
-  robot_activated: string = '1';
+  robot_activated: string = '0';
   teach_mode: string = '';
   operation_mode: string = 'manual';
   manual_program_num?: number;
